@@ -1,0 +1,23 @@
+[alias]
+	history = log --graph --all --abbrev-commit --decorate --date=format:'%d %b %Y %H:%M' --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ad%C(reset) %C(bold green)(%ar)%C(reset)%C(dim white) - %an%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%w(100, 0, 10)%s%C(reset)%n'
+	histy = !git history
+	h = !git history
+	delete-merged-branches = !git co dev && git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d
+	tidy = !git fetch --prune && git delete-merged-branches && printf '\nLocal:\n' && git for-each-ref --format='%(refname:short) %(color:bold yellow)%(push:track)%(color:reset)' refs/heads && printf '\nRemote:\n' && git branch --remote && printf '\nStashes:\n' && git stash list
+	unstage = reset HEAD
+	resetfile = !git checkout head --
+	resetall = !git reset HEAD --hard && git clean -f
+	undocommit = reset HEAD~1 --soft
+	diffback = "!f() { git diff head~$1 head; }; f"
+	c = commit -m
+	co = checkout
+	pop = stash pop
+	st = status
+	s = status
+	d = diff
+	db = !git diffback
+	pl = pull
+	ps = push
+	f = fetch
+	alias = !git config --list | grep alias | grep '(?<=alias.)[A-Za-z0-9]*' -Po
+	aliasfull = !git config --list | grep alias | grep '(?<=alias.).*' -Po
